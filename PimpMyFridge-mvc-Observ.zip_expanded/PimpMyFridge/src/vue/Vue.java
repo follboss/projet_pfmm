@@ -38,9 +38,9 @@ public class Vue implements Observer {
 	private Controlleur controlle;
 	//
 	private JFrame frame;
-	//initialisation des series de donnï¿½es
-	static XYSeries series = new XYSeries("Evolution de la tempï¿½rature interieur");
-	static XYSeries seriesRosee = new XYSeries("Point de rosï¿½e");
+	//initialisation des series de données
+	static XYSeries series = new XYSeries("Evolution de la température interieur");
+	static XYSeries seriesRosee = new XYSeries("Point de rosée");
 	static XYSeries seriesConsigne = new XYSeries("Consigne");
 	static XYSeries seriesHumidite = new XYSeries("Evolution de l humidite");
 	static XYSeriesCollection dataset = new XYSeriesCollection(series);
@@ -102,8 +102,8 @@ public class Vue implements Observer {
 		// classe anonyme ( initalisation de la table des valeurs)
 		table.setModel(
 				new DefaultTableModel(
-						new Object[][] { { "Tempï¿½rature interieur", 0 }, { "Consigne", 0 },
-								{ "Tempï¿½rature extï¿½rieur", 0 }, { "Point de rosï¿½e", 0 }, { "Humiditï¿½", 0 }, },
+						new Object[][] { { "Température interieur", 0 }, { "Consigne", 0 },
+								{ "Température extérieur", 0 }, { "Point de rosée", 0 }, { "Humidité", 0 }, },
 						new String[] { "", "Valeur" }) {
 					
 					//// pour le model de la jtable
@@ -125,7 +125,7 @@ public class Vue implements Observer {
 		});
 		tglbtnNewToggleButton.setBackground(new Color(0, 255, 0));
 		
-		// slider de changement d'ï¿½tat de la consigne
+		// slider de changement d'état de la consigne
 		JSlider slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -144,7 +144,7 @@ public class Vue implements Observer {
 
 		btnConsigne = new JButton("Consigne");
 
-		btnRose = new JButton("Rosï¿½e");
+		btnRose = new JButton("Rosée");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_1
 				.createSequentialGroup().addGap(1)
@@ -177,10 +177,10 @@ public class Vue implements Observer {
 		panel.setLayout(gl_panel);
 
 		// iniatlisation des 2 graphe a l'ihm
-		JFreeChart chart = ChartFactory.createXYLineChart("Tempï¿½rature interieur", "Time (seconds)", "Tempï¿½rature",
+		JFreeChart chart = ChartFactory.createXYLineChart("Température interieur", "Time (seconds)", "Température",
 				Vue.dataset);
-		// (seconds)", "Humiditï¿½ %", View.dataset3);
-		JFreeChart chart2 = ChartFactory.createXYLineChart("Humiditï¿½", "Time (seconds)", "Humiditï¿½ %",
+		// (seconds)", "Humidité %", View.dataset3);
+		JFreeChart chart2 = ChartFactory.createXYLineChart("Humidité", "Time (seconds)", "Humidité %",
 				Vue.dataset2);
 		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
 
@@ -190,9 +190,9 @@ public class Vue implements Observer {
 
 	@Override
 	// override de la methode update de l'osvervateur
-	//methode permettant la MAJ de l'ihm en fonction des changements de donnï¿½es
+	//methode permettant la MAJ de l'ihm en fonction des changements de données
 	public void update(Observable o, Object arg) {
-		// on recupere le point de rosï¿½e, les temps, consigne
+		// on recupere le point de rosée, les temps, consigne
 		float interieur = controlle.getInterieur();
 		float exterieur = controlle.getExterieur();
 		float humidite = controlle.getHumidite();
@@ -206,7 +206,7 @@ public class Vue implements Observer {
 		seriesConsigne.add(x, consigne);
 		seriesHumidite.add(x, humidite);
 		
-		//changement d'ï¿½tat en fonction des de l'ï¿½volution de la data
+		//changement d'état en fonction des de l'évolution de la data
 		if (controlle.getEtat()) {
 			tglbtnNewToggleButton.setText("ON");
 			tglbtnNewToggleButton.setBackground(new Color(0, 255, 0));
@@ -226,10 +226,10 @@ public class Vue implements Observer {
 		} else {
 			btnRose.setBackground(new Color(255, 0, 0));
 		}
-			//mise a jour en temps rï¿½el de la jtable avec recuperation de donnï¿½es
-		table.setModel(new DefaultTableModel(new Object[][] { { "Tempï¿½rature interieur", interieur },
-				{ "Consigne", consigne }, { "Tempï¿½rature extï¿½rieur", exterieur }, { "Point de rosï¿½e", rosee },
-				{ "Humiditï¿½", humidite }, }, new String[] { "", "Valeur" }) {
+			//mise a jour en temps réel de la jtable avec recuperation de données
+		table.setModel(new DefaultTableModel(new Object[][] { { "Température interieur", interieur },
+				{ "Consigne", consigne }, { "Température extérieur", exterieur }, { "Point de rosée", rosee },
+				{ "Humidité", humidite }, }, new String[] { "", "Valeur" }) {
 			/**
 					 * 
 					 */
