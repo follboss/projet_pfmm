@@ -26,11 +26,11 @@ public class Main {
 					vue.getFrame().setVisible(true);
 					
 				
-					//Simulation des données du modele
+					//Simulation des donnï¿½es du modele
 					Simulateur simulateur = new Simulateur(modele.getFrigo());
 					//ajout des observateur
-					simulateur.ajouterObservateur(modele);
-					simulateur.ajouterObservateur(vue);
+					simulateur.addObserver(modele);
+					simulateur.addObserver(vue);
 					
 					// start la simulation 
 					simulateur.simulation();

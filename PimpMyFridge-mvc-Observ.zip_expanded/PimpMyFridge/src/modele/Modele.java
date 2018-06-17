@@ -2,9 +2,10 @@ package modele;
 
 import static java.lang.Math.pow;
 
-import observer.Observateur;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Modele implements Observateur {
+public class Modele extends Observable implements Observer {
 	private Frigo frigo;
 
 	public Modele() {
@@ -18,8 +19,8 @@ public class Modele implements Observateur {
 	}
 
 	@Override
-	public void update() {
-				// allumage et instinction du frigo en fonction de l'atteinte de la consigne ou de l'atteinte du point de rosé
+	public void update(Observable o, Object arg) {
+				// allumage et instinction du frigo en fonction de l'atteinte de la consigne ou de l'atteinte du point de rosï¿½
 		if(pointrosee(frigo.getArduino().getThermoInterieur().getMesure(), frigo.getArduino().getCapteurHumidite().getMesure()) || seuille(frigo.getArduino().getThermoInterieur().getMesure(), frigo.getConsigne())) {
 			frigo.eteindre();
 		}
@@ -36,7 +37,7 @@ public class Modele implements Observateur {
 		this.frigo = frigo;
 	}
 
-	// si le point de rosée est atteint (temperature trop grande
+	// si le point de rosï¿½e est atteint (temperature trop grande
 	public boolean pointrosee(float temperature, float humidite) {
 		float rosee = (float) (pow((double) (humidite / 100), 0.125) * (112 + (0.9 * temperature)) + (0.1 * temperature)
 				- 112);
@@ -52,7 +53,7 @@ public class Modele implements Observateur {
 
 	}
 
-	// Si la temperature dépasse le seuille en moins ou en plus -> true
+	// Si la temperature dï¿½passe le seuille en moins ou en plus -> true
 	public boolean seuille(float temperature, int consigne) {
 		if (temperature > consigne -1 && temperature < consigne + 1 ) {
 			return true;
@@ -60,5 +61,6 @@ public class Modele implements Observateur {
 
 		return false;
 	}
+
 
 }

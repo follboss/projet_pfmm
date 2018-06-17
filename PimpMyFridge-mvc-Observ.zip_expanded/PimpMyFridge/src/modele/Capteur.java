@@ -1,6 +1,7 @@
 package modele;
 
-import observer.Observable;
+import java.util.Observable;
+
 //classe des capteurs arduino heritant du pattern observable
 public class Capteur extends Observable {
 

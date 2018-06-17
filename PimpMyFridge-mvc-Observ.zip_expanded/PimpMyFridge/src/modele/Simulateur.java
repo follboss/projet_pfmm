@@ -1,6 +1,6 @@
 package modele;
 
-import observer.Observable;
+import java.util.Observable;
 import java.util.concurrent.ThreadLocalRandom;
 
 //classe heritant du pattern observable
@@ -15,7 +15,7 @@ public class Simulateur extends Observable {
 		this.arduino = frigo.getArduino();
 	}
 
-	//methode de simulation de données
+	//methode de simulation de donnï¿½es
 	public void simulation() {
 
 		
@@ -26,7 +26,7 @@ public class Simulateur extends Observable {
 			public void run() {
 				while (true) {
 					try {
-						//génération des variations des valeurs
+						//gï¿½nï¿½ration des variations des valeurs
 						float humidite = (float) ThreadLocalRandom.current().nextDouble(-0.1, 0.1);
 						float temperatureExt = (float) ThreadLocalRandom.current().nextDouble(-0.1, 0.1);
 						float temperatureInt = 0;
@@ -35,14 +35,16 @@ public class Simulateur extends Observable {
 						} else {
 							temperatureInt = (float) ThreadLocalRandom.current().nextDouble(0, 0.05);
 						}
-							// MAJ des differntes données en fonctions des variation générées
+							// MAJ des differntes donnï¿½es en fonctions des variation gï¿½nï¿½rï¿½es
 						arduino.getCapteurHumidite().setMesure(arduino.getCapteurHumidite().getMesure() + humidite);
 						arduino.getThermoExterieur()
 								.setMesure(arduino.getThermoExterieur().getMesure() + temperatureExt);
 						arduino.getThermoInterieur()
 								.setMesure(arduino.getThermoInterieur().getMesure() + temperatureInt);
-						// notification de l'observateur par rapport a la variations des données
-						notifierObservateurs();
+						// notification de l'observateur par rapport a la variations des donnï¿½es
+												
+						setChanged();
+						notifyObservers(null);
 						
 						Thread.sleep(1000);
 					} catch (Exception e) {
