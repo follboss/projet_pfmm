@@ -26,6 +26,8 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import controlleur.Controlleur;
+import modele.Modele;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -36,6 +38,7 @@ public class Vue implements Observer {
 	
 	//initailisation du controller,
 	private Controlleur controlle;
+	private Modele modele;
 	//
 	private JFrame frame;
 	//initialisation des series de données
@@ -54,6 +57,7 @@ public class Vue implements Observer {
 
 	// constructeur de la vue
 	public Vue(Controlleur control) {
+		modele = control.getModele();
 		controlle = control;
 		initialize();
 	}

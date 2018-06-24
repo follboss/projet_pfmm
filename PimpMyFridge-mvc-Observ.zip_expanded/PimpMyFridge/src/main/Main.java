@@ -27,10 +27,10 @@ public class Main {
 					
 				
 					//Simulation des données du modele
-					Simulateur simulateur = new Simulateur(modele.getFrigo());
+					Simulateur simulateur = new Simulateur(modele);
 					//ajout des observateur
-					simulateur.addObserver(modele);
 					simulateur.addObserver(vue);
+					modele.addObserver(vue);
 					
 					// start la simulation 
 					simulateur.simulation();

@@ -5,7 +5,7 @@ import static java.lang.Math.pow;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Modele extends Observable implements Observer {
+public class Modele extends Observable{
 	private Frigo frigo;
 
 	public Modele() {
@@ -18,8 +18,7 @@ public class Modele extends Observable implements Observer {
 		frigo.allumer();
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
+	public void maj() {
 				// allumage et instinction du frigo en fonction de l'atteinte de la consigne ou de l'atteinte du point de rosé
 		if(pointrosee(frigo.getArduino().getThermoInterieur().getMesure(), frigo.getArduino().getCapteurHumidite().getMesure()) || seuille(frigo.getArduino().getThermoInterieur().getMesure(), frigo.getConsigne())) {
 			frigo.eteindre();
@@ -27,6 +26,8 @@ public class Modele extends Observable implements Observer {
 		else {
 			frigo.allumer();
 		}
+		setChanged();
+		notifyObservers();
 	}
 
 	public Frigo getFrigo() {

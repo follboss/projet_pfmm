@@ -7,11 +7,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Simulateur extends Observable {
 
 	private Frigo frigo;
+	private Modele modele;
 	private Arduino arduino;
 
-	public Simulateur(Frigo frigo) {
+	public Simulateur(Modele modele) {
 		super();
-		this.frigo = frigo;
+		this.modele = modele;
+		this.frigo = modele.getFrigo();
 		this.arduino = frigo.getArduino();
 	}
 
@@ -45,6 +47,8 @@ public class Simulateur extends Observable {
 												
 						setChanged();
 						notifyObservers(null);
+						
+						modele.maj();
 						
 						Thread.sleep(1000);
 					} catch (Exception e) {
